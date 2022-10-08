@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put} from 'redux-saga';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
+import axios from 'axios';
 
 const sagaMiddleWare = createSagaMiddleware();
 
@@ -15,7 +16,7 @@ function* watcherSaga() {
 
 const storeInstance = createStore(
     combineReducer({
-        
+
     }),
     applyMiddleware(sagaMiddleWare,logger)
 );
