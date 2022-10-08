@@ -14,21 +14,30 @@ const sagaMiddleWare = createSagaMiddleware();
 function* watcherSaga() {
 
 }
-const [gifSearch, setgifSearch] = useState('cats');
-const [imageUrl, setImageUrl] = useState('');
-
+//Get gifs from database or server?
 function* fetchAllGifs() {
     try {
         const gifSearch = yield axios.get('/api/');
         console.log('get search: ', gifSearch.data);
-        yield put ({type: 'SET_GIF', payload: gifSearch.data});
+        yield put ({type: 'SET_GIFS', payload: gifSearch.data});
     }catch{
         console.log('Error in fetchGifs');
     }
 }
 
+// Store gifs from fetch
+const gifs = (state = [], action) =>{
+    switch (action.type) {
+        case 'SET_GIFS':
+            return action.payload;
+            default :
+            return state;
+    }
+}
+
 const storeInstance = createStore(
     combineReducers({
+        gifs,
 
     }),
     applyMiddleware(sagaMiddleWare,logger)
