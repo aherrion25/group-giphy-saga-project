@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
-import { createStore, combineReducer, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put} from 'redux-saga';
 import { Provider } from 'react-redux';
@@ -15,7 +15,7 @@ function* watcherSaga() {
 }
 
 const storeInstance = createStore(
-    combineReducer({
+    combineReducers({
 
     }),
     applyMiddleware(sagaMiddleWare,logger)

@@ -4,6 +4,12 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.6",
+    "@mui/material": "^5.10.8",
+    "@mui/styled-engine-sc": "^5.10.6",
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "pg": "^8.5.1",
@@ -14,7 +20,8 @@
     "react-scripts": "^5.0.1",
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^1.2.1"
+    "redux-saga": "^1.2.1",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
