@@ -21,3 +21,4 @@ function FavoriteList ({fav}) {
         </div>
     )
 }
+ export default FavoriteList;

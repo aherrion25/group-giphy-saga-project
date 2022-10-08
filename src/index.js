@@ -8,6 +8,15 @@ import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import axios from 'axios';
 
+const getFavs = (state = [], action) =>{
+    switch(action.type){
+        case 'SET_FAVS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 const sagaMiddleWare = createSagaMiddleware();
 
 function* watcherSaga() {
