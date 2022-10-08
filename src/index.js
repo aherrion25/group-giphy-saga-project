@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
-import { createStore, combineReducer, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { useSelector, useDispatch, useState } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put} from 'redux-saga';
 import { Provider } from 'react-redux';
@@ -13,9 +14,21 @@ const sagaMiddleWare = createSagaMiddleware();
 function* watcherSaga() {
 
 }
+const [gifSearch, setgifSearch] = useState('cats');
+const [imageUrl, setImageUrl] = useState('');
+
+function* fetchAllGifs() {
+    try {
+        const gifSearch = yield axios.get('/api/');
+        console.log('get search: ', gifSearch.data);
+        yield put ({type: 'SET_GIF', payload: gifSearch.data});
+    }catch{
+        console.log('Error in fetchGifs');
+    }
+}
 
 const storeInstance = createStore(
-    combineReducer({
+    combineReducers({
 
     }),
     applyMiddleware(sagaMiddleWare,logger)
