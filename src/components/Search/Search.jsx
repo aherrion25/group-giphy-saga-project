@@ -7,7 +7,7 @@ function Search () {
 
     <div>
         <input></input>
-        <button>Search</button>
+        <button>Seach</button>
     </div>
 }
 
