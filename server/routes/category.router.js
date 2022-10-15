@@ -19,8 +19,8 @@ router.get('/', (req, res) => {
 
 
 router.get('/:gifSearch', (req, res) => {
-  const gifSearch = req.params.tag;
-  axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}&tag=${gifSearch}`)
+  const gifSearch = req.params.gifSearch;
+  axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${gifSearch}`)
   .then((response) => {
       res.send(response.data);
   })
