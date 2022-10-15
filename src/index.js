@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-
 import { useSelector, useDispatch, useState } from 'react-redux';
-
 import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put} from 'redux-saga/effects';
 import { Provider } from 'react-redux';
