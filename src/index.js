@@ -9,9 +9,29 @@ import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import axios from 'axios';
 
+const getFavs = (state = [], action) =>{
+    switch(action.type){
+        case 'SET_FAVS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+function* fetchFavs(){
+    try{
+        const favResponse = yield axios.get('api/favorite');
+        console.log('fav response', favResponse.data);
+        yield put({type: 'SET_FAVS', payload: favResponse.data})
+    } catch(error) {
+        console.log('error in fetchFavs', error);
+    }
+}
+
 const sagaMiddleWare = createSagaMiddleware();
 
 function* watcherSaga() {
+    yield takeEvery('FETCH_FAVS', fetchFavs)
     yield takeEvery ('SEARCH_GIFS', fetchAllGifs);
 }
 //Get gifs from database or server?
@@ -33,11 +53,14 @@ const gifs = (state = [], action) =>{
             default :
             return state;
     }
+
 }
 
 const storeInstance = createStore(
     combineReducers({
+        getFavs,
         gifs,
+
 
     }),
     applyMiddleware(sagaMiddleWare,logger)
