@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { useSelector, useDispatch, useState } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put} from 'redux-saga/effects';
 import { Provider } from 'react-redux';
@@ -31,11 +32,35 @@ const sagaMiddleWare = createSagaMiddleware();
 
 function* watcherSaga() {
     yield takeEvery('FETCH_FAVS', fetchFavs)
+    yield takeEvery ('SEARCH_GIFS', fetchAllGifs);
+}
+//Get gifs from database or server?
+function* fetchAllGifs(action) {
+    try {
+        const gifSearch = yield axios.get(`/api/category/${action.payload}`);
+        console.log('get search: ', gifSearch.data);
+        yield put ({type: 'SET_GIFS', payload: gifSearch.data});
+    }catch{
+        console.log('Error in fetchGifs');
+    }
+}
+
+// Store gifs from fetch
+const gifs = (state = [], action) =>{
+    switch (action.type) {
+        case 'SET_GIFS':
+            return action.payload;
+            default :
+            return state;
+    }
+
 }
 
 const storeInstance = createStore(
     combineReducers({
         getFavs,
+        gifs,
+
 
     }),
     applyMiddleware(sagaMiddleWare,logger)
